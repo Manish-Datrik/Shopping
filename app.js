@@ -2,7 +2,14 @@ const express = require("express");
 const app = express();
 const pool = require('./schema');
 const path = require("path");
+const serverless = require('serverless-http');
+// const app = express();
+const router = express.Router();
 
+router.get('/hello', (req, res) => res.send('Hello World!'));
+
+app.use('/.netlify/functions/api', router);
+module.exports.handler = serverless(app);
 // Middleware
 app.use(express.json());
 app.use(express.static('public'));
