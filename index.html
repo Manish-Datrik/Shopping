@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #444;
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff9800;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 2rem 0 2rem 0;
+            padding: 0 1rem;
+            margin-left: 0;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>cosmetics</h1>
+    </header>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <main>
+        <h2>Featured Cosmetics</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 2rem; margin-left: 0;">
+            <!-- Product 1 -->
+            <div style="background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <!-- <div style="font-size: 3rem; text-align: center; margin-bottom: 1rem;"></div> -->
+                <h3 style="margin-bottom: 0.5rem;">Velvet Matte Lipstick</h3>
+                <p style="color: #666; margin-bottom: 1rem;">Matte lipstick with velvety finish.</p>
+                <p style="font-size: 1.3rem; color: #333; font-weight: bold; margin-bottom: 1rem;">$24.99</p>
+                <button style="width: 100%; padding: 0.8rem; background-color: #ff6b6b; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor='#ff5252'" onmouseout="this.style.backgroundColor='#ff6b6b'">Add to Cart</button>
+            </div>
+            
+            <!-- Product 2 -->
+            <div style="background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <!-- <div style="font-size: 3rem; text-align: center; margin-bottom: 1rem;">✨</div> -->
+                <h3 style="margin-bottom: 0.5rem;">Radiant Glow Foundation</h3>
+                <p style="color: #666; margin-bottom: 1rem;">Dewy foundation with SPF protection.</p>
+                <p style="font-size: 1.3rem; color: #333; font-weight: bold; margin-bottom: 1rem;">$32.99</p>
+                <button style="width: 100%; padding: 0.8rem; background-color: #ff6b6b; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor='#ff5252'" onmouseout="this.style.backgroundColor='#ff6b6b'">Add to Cart</button>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
