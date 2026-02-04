@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
+    <title>Cosmetics Store</title>
     <style>
         * {
             margin: 0;
@@ -13,84 +13,252 @@
 
         body {
             font-family: Arial, sans-serif;
-            line-height: 1.6;
+            background-color: #f5f5f5;
             color: #333;
         }
 
         header {
             background-color: #333;
             color: white;
-            padding: 1rem;
-            text-align: center;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        nav {
-            background-color: #444;
-            padding: 0.5rem;
-            text-align: center;
+        header h1 {
+            font-size: 24px;
         }
 
-        nav a {
+        .cart-button {
+            background-color: #d4a574;
             color: white;
-            text-decoration: none;
-            margin: 0 1rem;
-            transition: color 0.3s;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
         }
 
-        nav a:hover {
-            color: #ff9800;
+        .cart-button:hover {
+            background-color: #b8905e;
         }
 
         main {
+            padding: 20px;
             max-width: 1000px;
-            margin: 2rem 0 2rem 0;
-            padding: 0 1rem;
-            margin-left: 0;
+            margin: 0 auto;
         }
 
-        footer {
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .product h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .product p {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #d4a574;
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart-btn {
+            background-color: #d4a574;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #b8905e;
+        }
+
+        /* Cart styles removed — cart is on /cart page now */
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
             background-color: #333;
             color: white;
-            text-align: center;
-            padding: 1rem;
-            margin-top: 2rem;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            display: block;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .error {
+            background-color: #ff6b6b !important;
+        }
+
+        .success {
+            background-color: #51cf66 !important;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>cosmetics</h1>
+        <h1>Cosmetics Store</h1>
+        <a href="/cart" class="cart-button">Cart (<span id="cart-count">0</span>)</a>
     </header>
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-    </nav>
-
     <main>
-        <h2>Featured Cosmetics</h2>
-        
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 2rem; margin-left: 0;">
-            <!-- Product 1 -->
-            <div style="background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                <!-- <div style="font-size: 3rem; text-align: center; margin-bottom: 1rem;"></div> -->
-                <h3 style="margin-bottom: 0.5rem;">Velvet Matte Lipstick</h3>
-                <p style="color: #666; margin-bottom: 1rem;">Matte lipstick with velvety finish.</p>
-                <p style="font-size: 1.3rem; color: #333; font-weight: bold; margin-bottom: 1rem;">$24.99</p>
-                <button style="width: 100%; padding: 0.8rem; background-color: #ff6b6b; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor='#ff5252'" onmouseout="this.style.backgroundColor='#ff6b6b'">Add to Cart</button>
-            </div>
-            
-            <!-- Product 2 -->
-            <div style="background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                <!-- <div style="font-size: 3rem; text-align: center; margin-bottom: 1rem;">✨</div> -->
-                <h3 style="margin-bottom: 0.5rem;">Radiant Glow Foundation</h3>
-                <p style="color: #666; margin-bottom: 1rem;">Dewy foundation with SPF protection.</p>
-                <p style="font-size: 1.3rem; color: #333; font-weight: bold; margin-bottom: 1rem;">$32.99</p>
-                <button style="width: 100%; padding: 0.8rem; background-color: #ff6b6b; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor='#ff5252'" onmouseout="this.style.backgroundColor='#ff6b6b'">Add to Cart</button>
-            </div>
+        <h2>Our Products</h2>
+        <div class="products-container" id="products">
+            <!-- Products will load here -->
         </div>
     </main>
 
+    <!-- Cart is available at /cart -->
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        let cart = [];
+        const userId = 1;
+
+        // Products data
+        const products = [
+            { id: 1, name: "Lipstick Red", price: 15.99, description: "Classic red lipstick" },
+            { id: 2, name: "Foundation Light", price: 25.99, description: "Light coverage foundation" },
+            { id: 3, name: "Eyeshadow Palette", price: 32.99, description: "12-color eyeshadow palette" },
+            { id: 4, name: "Mascara Black", price: 12.99, description: "Volumizing mascara" },
+            { id: 5, name: "Blush Pink", price: 14.99, description: "Rosy pink blush" },
+            { id: 6, name: "Face Cream", price: 28.99, description: "Moisturizing face cream" }
+        ];
+
+        // Load products on page load
+        function loadProducts() {
+            const productsDiv = document.getElementById('products');
+            productsDiv.innerHTML = products.map(product => `
+                <div class="product">
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <div class="price">$${product.price}</div>
+                    <button class="add-to-cart-btn" onclick="addToCart(${product.id}, '${product.name}', ${product.price})">
+                        Add to Cart
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Add to cart with async/await
+        async function addToCart(productId, productName, price) {
+            try {
+                const response = await fetch('/api/cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        quantity: 1,
+                        user_id: userId,
+                        product_name: productName,
+                        price: price
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to add item');
+                }
+
+                const data = await response.json();
+
+                // Add to local cart
+                const existingItem = cart.find(item => item.id === productId);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: productId,
+                        name: productName,
+                        price: price,
+                        quantity: 1
+                    });
+                }
+
+                updateCartUI();
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('Error adding item to cart', 'error');
+            }
+        }
+
+        // Update cart UI (index: only update cart count badge)
+        function updateCartUI() {
+            const cartCount = document.getElementById('cart-count');
+            cartCount.textContent = cart.reduce((sum, it) => sum + it.quantity, 0);
+        }
+
+        // Remove from cart (local UI only)
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show ' + type;
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize
+        loadProducts();
+    </script>
 </body>
 </html>
+
+

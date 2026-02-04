@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Your Cart</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#f5f5f5;color:#333;margin:0}
+    header{background:#333;color:#fff;padding:16px;display:flex;justify-content:space-between;align-items:center}
+    main{max-width:900px;margin:24px auto;padding:0 16px}
+    h1{font-size:20px}
+    .cart-list{background:#fff;border:1px solid #e6e6e6;padding:16px;border-radius:6px}
+    .cart-item{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f0f0f0}
+    .cart-item:last-child{border-bottom:none}
+    .item-left{max-width:70%}
+    .item-name{font-weight:600;margin-bottom:6px}
+    .item-meta{color:#666;font-size:14px}
+    .item-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+    .btn{background:#d4a574;color:#fff;padding:8px 12px;border-radius:4px;border:none;cursor:pointer}
+    .btn.secondary{background:#ff6b6b}
+    .total{display:flex;justify-content:flex-end;margin-top:12px;font-weight:700}
+    .empty{padding:24px;text-align:center;color:#777}
+
+  </style>
+</head>
+<body>
+
+  <main>
+    <h1>Your Cart</h1>
+    <div class="cart-list" id="cart-list">
+      <div class="empty">Loading...</div>
+    </div>
+    <div class="total">Total: <span id="total">$0.00</span></div>
+  </main>
+
+  <script>
+    const userId = <%= typeof userId !== 'undefined' ? JSON.stringify(userId) : 1 %>;
+
+    async function fetchCart() {
+      try {
+        const res = await fetch('/api/cart?user_id=' + userId);
+        const data = await res.json();
+        if (!data.success) throw new Error('Failed');
+        renderCart(data.items);
+      } catch (err) {
+        document.getElementById('cart-list').innerHTML = '<div class="empty">Error loading cart.</div>';
+        console.error(err);
+      }
+    }
+
+    function renderCart(items) {
+      const container = document.getElementById('cart-list');
+      if (!items || items.length === 0) {
+        container.innerHTML = '<div class="empty">Your cart is empty.</div>';
+        document.getElementById('total').textContent = '$0.00';
+        return;
+      }
+
+      let total = 0;
+      container.innerHTML = items.map(item => {
+        total += item.price * item.quantity;
+        return `
+          <div class="cart-item" data-id="${item.id}">
+            <div class="item-left">
+              <div class="item-name">${item.product_name}</div>
+              <div class="item-meta">$${item.price} × ${item.quantity}</div>
+            </div>
+            <div class="item-actions">
+              <button class="btn secondary" onclick="removeItem(${item.id})">Remove</button>
+            </div>
+          </div>`;
+      }).join('');
+
+      document.getElementById('total').textContent = '$' + total.toFixed(2);
+    }
+
+    async function removeItem(id) {
+      try {
+        const res = await fetch('/api/cart/' + id, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) fetchCart();
+      } catch (err) {
+        // show a simple message instead of blocking confirm
+        alert('Failed to remove item');
+      }
+    }
+
+    function checkout() {
+      alert('Checkout flow not implemented in this demo.');
+    }
+    fetchCart();
+  </script>
+</body>
+</html>
+
+
+
